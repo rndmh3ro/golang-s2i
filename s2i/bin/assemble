@@ -23,4 +23,5 @@ echo "---> Installing application source..."
 cp -Rf /tmp/src/. ./
 
 echo "---> Building application from source..."
-go build -o main
+export PATH="$PATH:/usr/local/go/bin"
+go build -o ../main
