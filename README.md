@@ -103,3 +103,7 @@ Create a *save-artifacts* script which allows a new build to reuse content from 
 
 #### usage (optional)
 Create a *usage* script that will print out instructions on how to use the image.
+
+## References
+ - [https://blog.openshift.com/create-s2i-builder-image/]
+ - [https://docs.openshift.org/latest/creating_images/s2i.html]
