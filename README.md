@@ -6,12 +6,10 @@
 ### Using Docker
 
 #### Create the builder image
-The following command will create a builder image named golang-centos7 based on the Dockerfile that was created previously.
+The following command will create a builder image named golang-centos7.
 ```
 docker build -t golang-centos7 .
 ```
-
-Once the image has finished building, the command *s2i usage golang-centos7* will print out the help info that was defined in the *usage* script.
 
 #### Testing the builder image
 The builder image can be tested using the following commands:
@@ -25,7 +23,6 @@ The application image combines the builder image with your applications source c
 The following command will create the application image:
 ```
 s2i build test/test-app golang-centos7 golang-centos7-app
----> Building and installing application from source...
 ```
 Using the logic defined in the *assemble* script, s2i will now create an application image using the builder image as a base and including the source code from the test/test-app directory.
 
@@ -38,7 +35,27 @@ The application, which consists of a simple static web page, should now be acces
 
 ### Using OpenShift
 
-TODO
+#### Create the builder image
+The following command will create a builder image named golang-centos7.
+```
+$ oc new-app https://github.com/nmasse-itix/golang-s2i.git --name=golang-centos7
+```
+
+#### Creating the application image
+The application image combines the builder image with your applications source code, which is served using whatever application is installed via the *Dockerfile*, compiled using the *assemble* script, and run using the *run* script.
+The following command will create the application image:
+```
+$ oc new-app --strategy=source --context-dir=test/test-app --name golang-centos7-app golang-centos7~https://github.com/nmasse-itix/golang-s2i.git
+```
+Using the logic defined in the *assemble* script, s2i will now create an application image using the builder image as a base and including the source code from the test/test-app directory.
+
+#### Running the application image
+Running the application image is as simple as invoking the "oc new-app" command:
+```
+$ oc expose service golang-centos7-app
+$ oc get route golang-centos7-app
+```
+The application, which consists of a simple static web page, should now be accessible at the url shown on last command (oc get route).
 
 
 ## Files and Directories  
