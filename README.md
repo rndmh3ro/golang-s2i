@@ -1,5 +1,5 @@
 
-# Creating a basic S2I builder image  
+# An OpenShift Source-to-Image builder dedicated to Go  
 
 ## Installation / usage
 
