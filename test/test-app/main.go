@@ -10,7 +10,7 @@ const (
 )
 
 func HelloWorld(w http.ResponseWriter, r *http.Request) {
-  fmt.Println(w, "Hello, world !")
+  fmt.Fprintln(w, "Hello, world !")
 }
 
 func main() {
