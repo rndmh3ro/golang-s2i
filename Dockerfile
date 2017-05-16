@@ -5,8 +5,9 @@ FROM openshift/base-centos7
 # Yes, it's me
 MAINTAINER Nicolas Masse <nicolas.masse@itix.fr>
 
-# The Go version you would like to use
-ENV GOLANG_VERSION 1.8.1
+# The Go version you would like to use (defaults to 1.8.1)
+ARG GOLANG_VERSION
+ENV GOLANG_VERSION ${GOLANG_VERSION:-1.8.1}
 
 LABEL io.k8s.description="Platform for building golang applications. Based on GO ${GOLANG_VERSION}." \
       io.k8s.display-name="golang builder v${GOLANG_VERSION}" \
