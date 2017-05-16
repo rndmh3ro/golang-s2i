@@ -46,7 +46,7 @@ The `oc scale` command is needed to prevent OpenShift from running your builder 
 You could also delete the useless service and the deployment config :
 ```
 $ oc delete service golang-centos7
-$ oc delete rc golang-centos7
+$ oc delete dc golang-centos7
 ```
 
 
