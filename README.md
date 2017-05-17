@@ -38,23 +38,16 @@ The application, which consists of a simple static web page, should now be acces
 #### Create the builder image
 The following command will create a builder image named golang-centos7.
 ```
-$ oc new-app https://github.com/nmasse-itix/golang-s2i.git --name=golang-centos7
-$ oc scale --replicas=0 dc golang-centos7
+$ oc new-build https://github.com/nmasse-itix/golang-s2i.git --name=golang-centos7
+$ oc logs -f bc/golang-centos7
 ```
-
-The `oc scale` command is needed to prevent OpenShift from running your builder image as an application.
-You could also delete the useless service and the deployment config :
-```
-$ oc delete service golang-centos7
-$ oc delete dc golang-centos7
-```
-
 
 #### Creating and running the application image
 The application image combines the builder image with your applications source code, which is served using whatever application is installed via the *Dockerfile*, compiled using the *assemble* script, and run using the *run* script.
 The following command will create the application image and run it:
 ```
 $ oc new-app --strategy=source --context-dir=test/test-app --name golang-centos7-app golang-centos7~https://github.com/nmasse-itix/golang-s2i.git
+$ oc logs -f bc/golang-centos7-app
 ```
 Using the logic defined in the *assemble* script, s2i will now create an application image using the builder image as a base and including the source code from the test/test-app directory.
 
